@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import fetch from "isomorphic-unfetch";
 
-const fullUrl = (url: string) => `http://localhost:7632/api/${url}`;
+export const fullUrl = (url: string) => `http://localhost:7632/api/${url}`;
 
 export default function useFetch<T>(
   shortUrl: string,
