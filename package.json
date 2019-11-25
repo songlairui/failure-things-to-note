@@ -1,12 +1,14 @@
 {
   "name": "things-to-do",
-  "productName": "Things should be noted at drafts",
+  "productName": "Start",
+  "description": "Things should be noted at drafts",
   "version": "1.0.0",
   "private": true,
+  "main": "main/index.js",
   "scripts": {
-    "start": "electron .",
     "dev": "yarn workspaces run dev",
-    "export": "yarn workspaces run export",
+    "dev:desktop": "electron .",
+    "start:serv": "yarn workspaces run start",
     "build-renderer": "next build renderer && next export renderer",
     "build-electron": "tsc -p electron-src",
     "build": "yarn build-renderer && yarn build-electron",
