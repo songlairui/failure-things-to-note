@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 export default function Dashboard() {
   return (
@@ -12,6 +13,11 @@ export default function Dashboard() {
             <li>排序</li>
             <li>添加描述</li>
           </ul>
+        </li>
+        <li>
+          <Link href="/_dashboard/config">
+            <a>配置项</a>
+          </Link>
         </li>
       </ul>
     </div>
