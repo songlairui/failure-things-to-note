@@ -1,7 +1,12 @@
 node_modules
+
 .tmp
+
 .next
 dist
 out
 main
+
 .DS_Store
+
+db.json
