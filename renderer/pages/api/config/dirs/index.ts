@@ -8,7 +8,9 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
   const { method, body } = req;
   const dataHandler = DB.get("config.dirs");
   let item: Dir;
-  const data = body ? JSON.parse(body) : null;
+
+  const data = body && typeof body === "string" ? JSON.parse(body) : body;
+
   switch (method) {
     case "GET":
       // Get data from your database
@@ -26,7 +28,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
           .slice(2, 8)
       };
       dataHandler.push(newItem).write();
-      item = dataHandler.find({ id: newItem.id });
+      item = dataHandler.find({ id: newItem.id }).value();
 
       res.status(200).json(item);
       break;

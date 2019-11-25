@@ -2,7 +2,7 @@ import { NextApiResponse, NextApiRequest } from "next";
 
 // import "../../../data/db";
 import DB from "../../../../data/db";
-import { Dir } from "../../../../data/dir.interface";
+import { Workspace_db as Workspace } from "../../../../data/workspace.interface";
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
   const {
@@ -10,20 +10,27 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
     method,
     body
   } = req;
-  const dataHandler = DB.get("config.dirs");
+  const dataHandler = DB.get("config.workspaces");
+  const relatedataHandler = DB.get("config.dirs");
+  const relationHandler = DB.get("config.relation.workspace_dir");
 
   const data = body && typeof body === "string" ? JSON.parse(body) : body;
 
-  let dirMeta: Dir;
+  let itemMeta: Workspace;
+
   switch (method) {
     case "GET":
-      dirMeta = dataHandler.find({ id }).value();
-      res.status(200).json(dirMeta);
+      itemMeta = dataHandler.find({ id }).value();
+      itemMeta.folders = relationHandler
+        .filter({ workspaceId: id })
+        .map(({ dirId }) => relatedataHandler.find({ id: dirId }).value());
+      res.status(200).json(itemMeta);
       break;
     case "DELETE":
-      dirMeta = dataHandler.find({ id }).value();
+      itemMeta = dataHandler.find({ id }).value();
+      // 删除相关数据？！
       dataHandler.remove({ id }).write();
-      res.status(200).json(dirMeta);
+      res.status(200).json(itemMeta);
       break;
 
     case "PUT":

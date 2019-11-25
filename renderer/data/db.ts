@@ -18,7 +18,11 @@ db.defaults({
         path: process.cwd()
       }
     ],
-    current: process.cwd()
+    workspaces: [],
+    current: 0,
+    relation: {
+      workspace_dir: []
+    }
   }
 }).write();
 
